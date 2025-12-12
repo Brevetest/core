@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.brevetest</groupId>
 	<artifactId>brevetest</artifactId>
-	<version>0.0.2-SNAPSHOT</version>
+	<version>0.0.1-SNAPSHOT</version>
 	<name>brevetest</name>
 	<description>Natural Language Test Framework</description>
 	<url/>
