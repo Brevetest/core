@@ -26,18 +26,4 @@ public class AuthService {
         throw new RuntimeException("Authentication failed: " + response.getStatusCode());
     }
 
-    public void makeAuthenticatedRequest(String token) {
-        HttpHeaders headers = new HttpHeaders();
-        headers.setBearerAuth(token);
-
-        HttpEntity<Void> request = new HttpEntity<>(headers);
-        ResponseEntity<String> response = restTemplate.exchange(
-                "https://dummyjson.com/auth/me",
-                HttpMethod.GET,
-                request,
-                String.class
-        );
-
-        System.out.println("Authenticated response: " + response.getBody());
-    }
 }
