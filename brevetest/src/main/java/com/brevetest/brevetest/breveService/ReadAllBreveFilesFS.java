@@ -29,8 +29,6 @@ public class ReadAllBreveFilesFS {
                         config.get("auth_url")
                 );
                 System.out.println("Token acquired: " + token);
-
-                authService.makeAuthenticatedRequest(token);
             }
         }
     }
