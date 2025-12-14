@@ -12,16 +12,26 @@ public class RequestService {
 
     public void executePost(String token, String postUrl, String postJson,
                             String expectedStatusCode, String expectedStatusMessage) {
+        executeRequest(HttpMethod.POST, token, postUrl, postJson, expectedStatusCode, expectedStatusMessage);
+    }
+
+    public void executePut(String token, String putUrl, String putJson,
+                           String expectedStatusCode, String expectedStatusMessage) {
+        executeRequest(HttpMethod.PUT, token, putUrl, putJson, expectedStatusCode, expectedStatusMessage);
+    }
+
+    private void executeRequest(HttpMethod method, String token, String url, String json,
+                                String expectedStatusCode, String expectedStatusMessage) {
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.setBearerAuth(token);
 
-        String jsonBody = (postJson == null || postJson.isEmpty()) ? "{}" : postJson;
+        String jsonBody = (json == null || json.isEmpty()) ? "{}" : json;
         HttpEntity<String> request = new HttpEntity<>(jsonBody, headers);
 
         try {
-            ResponseEntity<String> response = restTemplate.postForEntity(postUrl, request, String.class);
+            ResponseEntity<String> response = restTemplate.exchange(url, method, request, String.class);
             validateResponse(response, expectedStatusCode, expectedStatusMessage);
             System.out.println("Response Body: " + response.getBody());
         } catch (HttpClientErrorException e) {
@@ -31,7 +41,7 @@ public class RequestService {
             throw e;
         }
     }
-
+    // TODO: this method should move to a new validation class file
     private void validateResponse(ResponseEntity<String> response,
                                   String expectedStatusCode, String expectedStatusMessage) {
 

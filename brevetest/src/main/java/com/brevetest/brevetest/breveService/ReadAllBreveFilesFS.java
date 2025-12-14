@@ -42,8 +42,21 @@ public class ReadAllBreveFilesFS {
                             token,
                             postUrl,
                             config.get("post_json"),
-                            config.get("expected_status_code"),
-                            config.get("expected_status_message")
+                            config.get("post_expected_status_code"),
+                            config.get("post_expected_status_message")
+                    );
+                }
+
+                // Phase 3: Execute PUT request (if put_url provided)
+                String putUrl = config.get("put_url");
+                if (putUrl != null && !putUrl.isEmpty()) {
+                    System.out.println("--- Executing PUT request ---");
+                    requestService.executePut(
+                            token,
+                            putUrl,
+                            config.get("put_json"),
+                            config.get("put_expected_status_code"),
+                            config.get("put_expected_status_message")
                     );
                 }
 
