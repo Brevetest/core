@@ -1,21 +1,17 @@
 package com.brevetest.brevetest.breveService;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
 import java.io.IOException;
 import java.nio.file.*;
 import java.util.HashMap;
 import java.util.Map;
 
-@Component
 public class ReadAllBreveFilesFS {
 
-    @Autowired
-    private AuthService authService;
 
-    @Autowired
-    private RequestService requestService;
+    private AuthService authService = new AuthService();
+
+
+    private RequestService requestService = new RequestService();
 
     public void runBreve() throws IOException {
         Path breveDir = Paths.get("src/test/breve");
