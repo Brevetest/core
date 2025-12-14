@@ -1,0 +1,8 @@
+username=emilys
+password=emilyspass
+auth_url=https://dummyjson.com/auth/login
+
+get_url=https://dummyjson.com/products/1
+get_expected_status_code=200
+get_expected_status_message=OK
+get_expected_response_contains=title

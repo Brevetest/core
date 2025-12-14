@@ -60,6 +60,33 @@ public class ReadAllBreveFilesFS {
                     );
                 }
 
+                // Phase 4: Execute GET request (if get_url provided)
+                String getUrl = config.get("get_url");
+                if (getUrl != null && !getUrl.isEmpty()) {
+                    System.out.println("--- Executing GET request ---");
+                    requestService.executeGet(
+                            token,
+                            getUrl,
+                            config.get("get_expected_status_code"),
+                            config.get("get_expected_status_message"),
+                            config.get("get_expected_response_contains")
+                    );
+                }
+
+                // Phase 5: Execute DELETE request (if delete_url provided)
+                String deleteUrl = config.get("delete_url");
+                if (deleteUrl != null && !deleteUrl.isEmpty()) {
+                    System.out.println("--- Executing DELETE request ---");
+                    requestService.executeDelete(
+                            token,
+                            deleteUrl,
+                            config.get("delete_json"),
+                            config.get("delete_expected_status_code"),
+                            config.get("delete_expected_status_message"),
+                            config.get("delete_expected_response_contains")
+                    );
+                }
+
                 System.out.println("=== Completed: " + file.getFileName() + " ===\n");
             }
         }
