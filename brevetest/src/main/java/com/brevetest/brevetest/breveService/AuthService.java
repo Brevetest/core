@@ -20,10 +20,11 @@ public class AuthService {
 
         ResponseEntity<Map> response = restTemplate.postForEntity(authUrl, request, Map.class);
 
+        System.out.println("Auth Status: " + response.getStatusCode().value());
+
         if (response.getStatusCode().is2xxSuccessful() && response.getBody() != null) {
             return (String) response.getBody().get("accessToken");
         }
         throw new RuntimeException("Authentication failed: " + response.getStatusCode());
     }
-
 }
