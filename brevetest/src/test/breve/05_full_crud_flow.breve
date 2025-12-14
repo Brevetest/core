@@ -1,0 +1,24 @@
+username=emilys
+password=emilyspass
+auth_url=https://dummyjson.com/auth/login
+
+post_url=https://dummyjson.com/products/add
+post_json={"title": "Full CRUD Test Item", "price": 100}
+post_expected_status_code=201
+post_expected_status_message=Created
+
+get_url=https://dummyjson.com/products/5
+get_expected_status_code=200
+get_expected_status_message=OK
+get_expected_response_contains=price
+
+put_url=https://dummyjson.com/products/5
+put_json={"title": "Modified CRUD Item", "price": 150}
+put_expected_status_code=200
+put_expected_status_message=OK
+
+delete_url=https://dummyjson.com/products/5
+delete_json=
+delete_expected_status_code=200
+delete_expected_status_message=OK
+delete_expected_response_contains=isDeleted

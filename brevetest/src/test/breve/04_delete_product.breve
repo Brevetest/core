@@ -1,0 +1,9 @@
+username=emilys
+password=emilyspass
+auth_url=https://dummyjson.com/auth/login
+
+delete_url=https://dummyjson.com/products/1
+delete_json=
+delete_expected_status_code=200
+delete_expected_status_message=OK
+delete_expected_response_contains=isDeleted

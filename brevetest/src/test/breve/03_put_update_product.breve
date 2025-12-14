@@ -1,0 +1,8 @@
+username=emilys
+password=emilyspass
+auth_url=https://dummyjson.com/auth/login
+
+put_url=https://dummyjson.com/products/1
+put_json={"title": "Updated by Breve", "price": 999}
+put_expected_status_code=200
+put_expected_status_message=OK
