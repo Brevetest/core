@@ -8,11 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class BrevetestApplication implements CommandLineRunner {
 
-	private final ReadAllBreveFilesFS breveReader;
-
-	public BrevetestApplication(ReadAllBreveFilesFS breveReader) {
-		this.breveReader = breveReader;
-	}
+	private final ReadAllBreveFilesFS breveReader = new ReadAllBreveFilesFS();
 
 	public static void main(String[] args) {
 		SpringApplication.run(BrevetestApplication.class, args);
