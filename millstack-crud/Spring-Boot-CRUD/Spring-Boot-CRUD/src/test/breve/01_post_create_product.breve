@@ -1,0 +1,8 @@
+username=emilys
+password=emilyspass
+auth_url=https://dummyjson.com/auth/login
+
+post_url=http://localhost:8080/student
+post_json={"name": "Azeez", "email": "johndoodle@gmail.com"}
+post_expected_status_code=200
+post_expected_status_message=200 OK
