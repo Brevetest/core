@@ -14,6 +14,9 @@ public class ReadAllBreveFilesFS {
     @Autowired
     private AuthService authService;
 
+    @Autowired
+    private RequestService requestService;
+
     public void runBreve() throws IOException {
         Path breveDir = Paths.get("src/test/breve");
 
@@ -23,12 +26,28 @@ public class ReadAllBreveFilesFS {
 
                 Map<String, String> config = parseBreveFile(file);
 
+                // Phase 1: Authenticate
                 String token = authService.authenticate(
                         config.get("username"),
                         config.get("password"),
                         config.get("auth_url")
                 );
-                System.out.println("Token acquired: " + token);
+                System.out.println("Token acquired: " + token.substring(0, 20) + "...");
+
+                // Phase 2: Execute POST request (if post_url provided)
+                String postUrl = config.get("post_url");
+                if (postUrl != null && !postUrl.isEmpty()) {
+                    System.out.println("--- Executing POST request ---");
+                    requestService.executePost(
+                            token,
+                            postUrl,
+                            config.get("post_json"),
+                            config.get("expected_status_code"),
+                            config.get("expected_status_message")
+                    );
+                }
+
+                System.out.println("=== Completed: " + file.getFileName() + " ===\n");
             }
         }
     }
