@@ -6,3 +6,7 @@ put_url=https://dummyjson.com/products/1
 put_json={"title": "Updated by Breve", "price": 999}
 put_expected_status_code=200
 put_expected_status_message=OK
+
+response.id == "1"
+response.title == "Updated by Breve"
+response.price == "999"
