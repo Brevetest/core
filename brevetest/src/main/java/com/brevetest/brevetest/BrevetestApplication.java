@@ -4,8 +4,10 @@ import com.brevetest.brevetest.breveService.ReadAllBreveFilesFS;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.boot.autoconfigure.batch.BatchAutoConfiguration;
 
-@SpringBootApplication
+@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class, BatchAutoConfiguration.class})
 public class BrevetestApplication implements CommandLineRunner {
 
 	private final ReadAllBreveFilesFS breveReader = new ReadAllBreveFilesFS();

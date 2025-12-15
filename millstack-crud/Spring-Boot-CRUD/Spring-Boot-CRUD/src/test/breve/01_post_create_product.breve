@@ -3,6 +3,10 @@ password=emilyspass
 auth_url=https://dummyjson.com/auth/login
 
 post_url=http://localhost:8080/student
-post_json={"name": "Azeez", "email": "johndoodle@gmail.com"}
+post_json={"name": "Angela", "email": "angeladoodle@gmail.com"}
 post_expected_status_code=200
-post_expected_status_message=200 OK
+post_expected_status_message=200
+
+response.message == "Student saved successfully"
+response.data.name == "Angela"
+response.data.email == "angeladoodle@gmail.com"

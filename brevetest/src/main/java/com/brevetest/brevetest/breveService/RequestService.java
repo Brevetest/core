@@ -4,35 +4,42 @@ import org.springframework.http.*;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.List;
+
 public class RequestService {
 
     private final RestTemplate restTemplate = new RestTemplate();
+    private final ResponseAssertionService assertionService = new ResponseAssertionService();
 
     public void executePost(String token, String postUrl, String postJson,
-                            String expectedStatusCode, String expectedStatusMessage) {
-        executeRequest(HttpMethod.POST, token, postUrl, postJson, expectedStatusCode, expectedStatusMessage, null);
+                            String expectedStatusCode, String expectedStatusMessage,
+                            List<String> assertions) {
+        executeRequest(HttpMethod.POST, token, postUrl, postJson, expectedStatusCode, expectedStatusMessage, null, assertions);
     }
 
     public void executePut(String token, String putUrl, String putJson,
-                           String expectedStatusCode, String expectedStatusMessage) {
-        executeRequest(HttpMethod.PUT, token, putUrl, putJson, expectedStatusCode, expectedStatusMessage, null);
+                           String expectedStatusCode, String expectedStatusMessage,
+                           List<String> assertions) {
+        executeRequest(HttpMethod.PUT, token, putUrl, putJson, expectedStatusCode, expectedStatusMessage, null, assertions);
     }
 
     public void executeGet(String token, String getUrl,
                            String expectedStatusCode, String expectedStatusMessage,
-                           String expectedResponseContains) {
-        executeRequest(HttpMethod.GET, token, getUrl, null, expectedStatusCode, expectedStatusMessage, expectedResponseContains);
+                           String expectedResponseContains,
+                           List<String> assertions) {
+        executeRequest(HttpMethod.GET, token, getUrl, null, expectedStatusCode, expectedStatusMessage, expectedResponseContains, assertions);
     }
 
     public void executeDelete(String token, String deleteUrl, String deleteJson,
                               String expectedStatusCode, String expectedStatusMessage,
-                              String expectedResponseContains) {
-        executeRequest(HttpMethod.DELETE, token, deleteUrl, deleteJson, expectedStatusCode, expectedStatusMessage, expectedResponseContains);
+                              String expectedResponseContains,
+                              List<String> assertions) {
+        executeRequest(HttpMethod.DELETE, token, deleteUrl, deleteJson, expectedStatusCode, expectedStatusMessage, expectedResponseContains, assertions);
     }
 
     private void executeRequest(HttpMethod method, String token, String url, String json,
                                 String expectedStatusCode, String expectedStatusMessage,
-                                String expectedResponseContains) {
+                                String expectedResponseContains, List<String> assertions) {
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -49,6 +56,12 @@ public class RequestService {
             ResponseEntity<String> response = restTemplate.exchange(url, method, request, String.class);
             validateResponse(response, expectedStatusCode, expectedStatusMessage, expectedResponseContains);
             System.out.println("Response Body: " + response.getBody());
+
+            // Execute response assertions
+            if (assertions != null && !assertions.isEmpty()) {
+                System.out.println("--- Validating response assertions ---");
+                assertionService.validate(response.getBody(), assertions);
+            }
         } catch (HttpClientErrorException e) {
             System.out.println("Request Failed!");
             System.out.println("Status Code: " + e.getStatusCode().value());
